@@ -1,0 +1,31 @@
+<div class="background">
+    <div class="login">
+
+        <!-- logo -->
+        <div class="logo">
+
+        </div>
+
+        <!-- Username -->
+        <nz-input-group class="input-login" [nzSize]="'large'" [nzAddOnBefore]="usericon">
+            <input nz-input name="username" type="text" placeholder="Username" [(ngModel)]="loginUserData.username"/>
+            <ng-template #usericon>
+                <div>
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                </div>
+            </ng-template>
+        </nz-input-group>
+
+        <!-- Password -->
+        <nz-input-group [nzSize]="'large'" nzAddOnBeforeIcon="unlock">
+            <input nz-input name="password" type="password" placeholder="Password" [(ngModel)]="loginUserData.password"/>
+        </nz-input-group>
+
+        <!-- Login Button -->
+        <button nz-button nzType="default" (click)="login()" style="
+            background-color: #001529;
+            color: white;">
+            Login</button>
+
+    </div>
+</div>

@@ -1,0 +1,372 @@
+<div class="row col-12 m-0 p-0">
+
+    <div class="col-4 p-0">
+        <h3 style="font-size: 22px;
+                   font-family: 'Poppins', sans-serif;
+                   font-weight: 500;">
+            Order
+        </h3>
+    </div>
+
+    <div class="col-4 p-0 text-center">
+        <nz-range-picker (ngModel)="date"></nz-range-picker>
+    </div>
+
+    <div class="row col-4 ml-0 p-0 justify-content-end">
+        <button class="btn-default" nz-button><i nz-icon nzType="printer" nzTheme="outline"></i>พิมพ์</button>
+
+        <button class="btn-default ml-2" nz-button>จัดการหลายออเดอร์</button>
+
+        <button class="create-order ml-2" nz-button>สร้างออเดอร์</button>
+
+    </div>
+
+</div>
+
+<nz-tabset>
+
+    <nz-tab nzTitle="List View">
+
+        <!-- Filter -->
+        <div class="filter-select row col-12 p-0 justify-content-end">
+
+            <div style="color: #000000a6;
+                        padding-top: 4px;
+                        ">Filter</div>
+
+            <nz-select ngModel="allstatus">
+                <nz-option nzValue="allstatus" nzLabel="ทุกสถานะ"></nz-option>
+                <nz-option nzValue="ยกเลิก" nzLabel="ยกเลิก"></nz-option>
+                <nz-option nzValue="รอชำระเงิน" nzLabel="รอชำระเงิน"></nz-option>
+                <nz-option nzValue="ได้รับเงิน" nzLabel="ได้รับเงิน"></nz-option>
+                <nz-option nzValue="จัดเตรียมสินค้า" nzLabel="จัดเตรียมสินค้า"></nz-option>
+                <nz-option nzValue="จัดส่ง" nzLabel="จัดส่ง"></nz-option>
+                <nz-option nzValue="เสร็จสิ้น" nzLabel="เสร็จสิ้น"></nz-option>
+            </nz-select>
+
+            <nz-select class="" ngModel="ทุกช่องทางขาย">
+                <nz-option nzValue="ทุกช่องทางขาย" nzLabel="ทุกช่องทางขาย"></nz-option>
+                <nz-option nzValue="Facbook" nzLabel="Facbook"></nz-option>
+                <nz-option nzValue="Line@" nzLabel="Line@"></nz-option>
+                <nz-option nzValue="Line" nzLabel="Line"></nz-option>
+                <nz-option nzValue="Instagram" nzLabel="Instagram"></nz-option>
+                <nz-option nzValue="Twitter" nzLabel="Twitter"></nz-option>
+                <nz-option nzValue="Wechat" nzLabel="Wechat"></nz-option>
+                <nz-option nzValue="Web Site" nzLabel="Web Site"></nz-option>
+            </nz-select>
+
+            <nz-select ngModel="ทุกการชำระเงิน">
+                <nz-option nzValue="ทุกการชำระเงิน" nzLabel="ทุกการชำระเงิน"></nz-option>
+                <nz-option nzValue="ชำระเงินสด" nzLabel="ชำระเงินสด"></nz-option>
+                <nz-option nzValue="โอนเงินผ่านธนาคาร" nzLabel="โอนเงินผ่านธนาคาร"></nz-option>
+                <nz-option nzValue="Credit Card" nzLabel="Credit Card"></nz-option>
+                <nz-option nzValue="QR Code" nzLabel="QR Code"></nz-option>
+                <nz-option nzValue="เก็บเงินปลายทาง" nzLabel="เก็บเงินปลายทาง"></nz-option>
+            </nz-select>
+
+            <nz-select class="mr-2" ngModel="Create By">
+                <nz-option nzValue="Create By" nzLabel="Create By" ></nz-option>
+            </nz-select>
+
+            <button nz-button class="btn-export">
+                <span><i class="fas fa-file-excel"></i> EXPORT </span>
+            </button>
+
+        </div>
+
+        <!-- Order-detail -->
+        <nz-table class="col-12 mt-3 p-0" style="border-top: 1px solid #f0f0f0;">
+            <thead>
+                <tr style="color: #00000073;">
+                    <!-- link -->
+                    <th class="text-center align-middle">
+                        <div>Link</div>
+                    </th>
+
+                    <!-- Channel -->
+                    <th class="text-center align-middle">
+                        <div>
+                            Channel
+                            <i nz-icon nzType="info-circle" nzTheme="outline" nz-popover nzPopoverTrigger="click"
+                                [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom"
+                                style="cursor: pointer;"></i>
+                        </div>
+                    </th>
+
+                    <!-- Order no -->
+                    <th>
+                        <input nz-input="" nzsize="small" placeholder="Order no." style="max-width: 120px;"
+                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                    </th>
+
+                    <!-- Status -->
+                    <th>
+                        <div class="text-center align-middle">
+                            Status
+                            <i nz-icon nzType="info-circle" nzTheme="outline" nz-popover nzPopoverTrigger="click"
+                                [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom"
+                                style="cursor: pointer;"></i>
+                        </div>
+                        <ng-template #contentTemplate>
+                            <div style="color: #000000a6;">
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-status1.png" alt=""
+                                        style="width: 28px;"> รอชำระเงิน
+                                </div>
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-status2.png" alt=""
+                                        style="width: 28px;"> ได้รับเงิน
+                                </div>
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-status3.png" alt=""
+                                        style="width: 28px;"> จัดเตรียมสินค้า
+                                </div>
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-status4.png" alt=""
+                                        style="width: 28px;"> จัดส่ง
+                                </div>
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-success.png" alt=""
+                                        style="width: 28px;"> เสร็จสิ้น
+                                </div>
+                                <div>
+                                    <img class="mr-2" src="/assets/images/status/order-status5.png" alt=""
+                                        style="width: 28px;"> ยกเลิก
+                                </div>
+                            </div>
+                        </ng-template>
+                    </th>
+
+                    <!-- Name / Email -->
+                    <th>
+                        <input nz-input="" nzsize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"
+                            class="ant-input ant-input-sm ng-pristine ng-valid ng-touched">
+                    </th>
+
+                    <!-- ยอดชำระ -->
+                    <th>
+                        <input nz-input="" nzsize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');"
+                            placeholder="ยอดชำระ" style="max-width: 150px;"
+                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                    </th>
+
+                    <!-- Pay -->
+                    <th>
+                        <div>
+                            Pay
+                            <i nz-icon nzType="info-circle" nzTheme="outline" nz-popover nzPopoverTrigger="click"
+                                [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom"
+                                style="cursor: pointer;"></i>
+                        </div>
+                    </th>
+
+                    <!-- Shipping -->
+                    <!-- <th>Shipping</th> -->
+
+                    <!-- Tracking Code -->
+                    <th><input nz-input="" nzsize="small" placeholder="Tracking Code" style="max-width: 150px;"
+                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                    </th>
+
+                    <!-- Button -->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let obj of OrderData" style="color: #000000d9;">
+
+                    <!-- Link -->
+                    <td class="text-center align-middle">
+                        <div>
+                            <i class="fa fa-link fa-lg"></i>
+                        </div>
+                    </td>
+
+                    <!-- Channel -->
+                    <td>
+                        <div class="text-center"><img src="https://uat.ketshoptest.com/{{obj.from_social.img}}"
+                                alt="..." style="width: 26px;"></div>
+                    </td>
+
+                    <!-- Order no. -->
+                    <td>
+                        <nz-tag [nzColor]="'cyan'">
+                            {{obj.ordercode}}
+                        </nz-tag> <br>
+
+                        <span style="
+                                color: #00000073;
+                                font-size: 12px;">
+                            {{obj.order_date}}
+                        </span>
+                    </td>
+
+                    <!-- Status -->
+                    <td class="text-center align-middle">
+                        <!-- รอชำระเงิน -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == 1">
+                            <img src="/assets/images/status/order-status1.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- ได้รับเงิน -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == 2">
+                            <img src="/assets/images/status/order-status2.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- จัดเตรียมสินค้า -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == 3">
+                            <img src="/assets/images/status/order-status3.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- จัดส่ง -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == 4">
+                            <img src="/assets/images/status/order-status4.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- ยกเลิก -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == -1">
+                            <img src="/assets/images/status/order-status5.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- <div nz-popover nzPopoverContent="เสร็จสิ้น"
+                            nzPopoverPlacement="right" *ngIf="obj.status == ">
+                            <img src="/assets/images/status/order-success" alt="" style="width: 26px;">
+                        </div> -->
+
+                        <!-- payment -->
+                        <ng-template #TimelineTemplate>
+                            <ng-container>
+                                <nz-steps nzCurrent="{{obj.status}}" nzProgressDot nzDirection="vertical">
+
+                                    <nz-step *ngFor="let step of obj.status_timeline" nzTitle="{{step.name}}"
+                                        [nzDescription]="description" nzStatus="{{step.process}}">
+                                        <ng-template #description>
+                                            <div style="font-size: 12px;">
+                                                <span>{{step.datetime == '-'? '':step.datetime}}</span><br>
+                                                <span>{{step.created_by == ''? '':'โดย: '+step.created_by}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </nz-step>
+
+                                </nz-steps>
+                            </ng-container>
+                        </ng-template>
+
+
+                        <!-- delivery -->
+                        <!-- <ng-template #deliveryTemplate>
+                           
+                            <nz-steps [nzCurrent]="0" nzProgressDot nzDirection="vertical" *ngFor="let step of obj.status_timeline">
+
+                                <nz-step nzTitle="{{step.name}}" nzStatus="finish"></nz-step>
+
+                            </nz-steps>
+                            
+                        </ng-template> -->
+
+                        <!-- <ng-template #testTemplate>
+                            <div *ngFor="let step of obj.status_timeline">
+                                <span>{{ step.datetime }}</span>
+                                <span> โดย: {{ step.created_by }}</span>
+                            </div>
+                        </ng-template> -->
+
+                    </td>
+
+                    <!-- Name / Email -->
+                    <td class="align-middle">
+                        <div style="
+                            font-size: 13px;
+                            font-weight: 400;
+                            letter-spacing: .018em;
+                            color: #000000d9;">
+                            {{ obj.bill_name }} {{ obj.bill_lastname }}
+                        </div>
+
+                        <div style="
+                                font-size: 12px;
+                                color: #00000073;">
+                            {{obj.username}}
+                        </div>
+                    </td>
+
+                    <!-- ยอดชำระ -->
+                    <td class="text-right align-middle">
+                        <nz-tag [nzColor]="'green'">{{obj.totals | currency: ' '}}</nz-tag>
+                    </td>
+
+                    <!-- Pay -->
+                    <td class="text-center align-middle">
+                        <div *ngIf="obj?.paymenttype?.id == 1">
+                            <img src="/assets/images/pay/payment-cash.png" alt="" style="width: 28px;">
+                        </div>
+
+                        <div *ngIf="obj?.paymenttype?.id == 2">
+                            <img src="/assets/images/pay/payment-transfer.png" alt="" style="width: 28px;">
+                        </div>
+
+                        <div *ngIf="obj?.paymenttype?.id == 3">
+                            <img src="/assets/images/pay/payment-credit.png" alt="" style="width: 28px;">
+                        </div>
+
+                        <div *ngIf="obj?.paymenttype?.id == 4">
+                            <img src="/assets/images/pay/payment-cod.png" alt="" style="width: 28px;">
+                        </div>
+
+                        <div *ngIf="obj?.paymenttype?.id == 5">
+                            <img src="/assets/images/pay/payment-qrcode.png" alt="" style="width: 28px;">
+                        </div>
+                    </td>
+
+                    <!-- Shipping -->
+                    <!-- <td class="text-center align-middle">
+                        <div *ngIf="obj?.delivery?.logo">
+                            <img src="https://uat.ketshoptest.com/{{obj.delivery.logo}}" alt="..." style="max-width: 100%;
+                                       width: 80px;
+                                       height: 30px;
+                                       object-fit: cover;
+                                       border-radius: 5px;">
+                        </div>
+                    </td> -->
+
+                    <!-- Tracking COD -->
+                    <td class="align-middle">
+                        <span></span>
+                        <span style="font-size: 13px;
+                                     font-weight: 400;">
+                            {{obj.delivery?.name}}</span> <br>
+                        <span class="badge-tracking" *ngIf="obj.trackcode !== null">{{obj.trackcode}}</span>
+                    </td>
+
+                    <!-- Button -->
+                    <td class="text-right align-middle p-0">
+                        <button class="btn btn-tmt-act btn-tmt-act-ed" nz-tooltip="" nztitle="โคลนออเดอร์">
+                            <i _ngcontent-rge-c11="" class="fa fa-clone"></i>
+                        </button>
+
+                        <button _ngcontent-kpd-c11="" class="btn btn-tmt-act btn-tmt-act-ed ml-2">
+                            <i _ngcontent-kpd-c11="" class="fas fa-pencil-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+
+        <div>
+            <nz-pagination [nzPageIndex]="1" [nzTotal]="397" [nzPageSize]="10"
+                (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
+        </div>
+
+    </nz-tab>
+
+    <nz-tab nzTitle="Status View">
+        <!-- <nz-demo-tab-content-eagerly></nz-demo-tab-content-eagerly> -->
+    </nz-tab>
+
+
+</nz-tabset>
