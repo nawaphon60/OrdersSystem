@@ -125,7 +125,7 @@ th, td {
     font-size: 12px !important;
 }
 
-.badge-tracking {
+::ng-deep .badge-tracking {
     background-color: rgba(143, 168, 180, .2)!important;
     color: rgba(0, 0, 0, .65)!important;
     font-weight: 500!important;
@@ -136,4 +136,8 @@ th, td {
 
 ::ng-deep .ant-steps-item-title {
     font-size: 14px !important;
+}
+
+.trackingcode {
+    margin: 0;
 }

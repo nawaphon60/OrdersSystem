@@ -65,7 +65,7 @@
             </nz-select>
 
             <nz-select class="mr-2" ngModel="Create By">
-                <nz-option nzValue="Create By" nzLabel="Create By" ></nz-option>
+                <nz-option nzValue="Create By" nzLabel="Create By"></nz-option>
             </nz-select>
 
             <button nz-button class="btn-export">
@@ -336,11 +336,30 @@
 
                     <!-- Tracking COD -->
                     <td class="align-middle">
-                        <span></span>
-                        <span style="font-size: 13px;
-                                     font-weight: 400;">
-                            {{obj.delivery?.name}}</span> <br>
-                        <span class="badge-tracking" *ngIf="obj.trackcode !== null">{{obj.trackcode}}</span>
+                        <div class="trackingcode row">
+                            <div *ngIf="obj?.delivery?.logo">
+                                <img src="https://uat.ketshoptest.com/{{obj.delivery.logo}}" alt="..." style="max-width: 100%;
+                                           width: 70px;
+                                           height: 28px;
+                                           object-fit: cover;
+                                           border-radius: 5px;">
+                            </div>
+                            <div class="col pl-2 pr-0 align-self-center">
+                                <p style="margin: 0;
+                                          font-size: 10px;
+                                          color: #00000073;
+                                          margin-bottom: 0;">
+                                    {{obj.delivery?.type == null? '':obj.delivery.type}}
+                                </p>
+                                <span style="font-size: 13px;
+                                         font-weight: 400;">
+                                    {{obj.delivery?.name}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 px-0">
+                            <span class="badge-tracking" *ngIf="obj.trackcode !== null">{{obj.trackcode}}</span>
+                        </div>
                     </td>
 
                     <!-- Button -->
