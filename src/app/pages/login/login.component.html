@@ -11,15 +11,20 @@
             <input nz-input name="username" type="text" placeholder="Username" [(ngModel)]="loginUserData.username"/>
             <ng-template #usericon>
                 <div>
-                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                    <i class="fas fa-user"></i>
                 </div>
             </ng-template>
         </nz-input-group>
 
         <!-- Password -->
-        <nz-input-group [nzSize]="'large'" nzAddOnBeforeIcon="unlock">
+        <nz-input-group [nzSize]="'large'" [nzAddOnBefore]="password">
             <input nz-input name="password" type="password" placeholder="Password" [(ngModel)]="loginUserData.password"/>
         </nz-input-group>
+        <ng-template #password>
+            <div>
+                <i class="fas fa-lock"></i>
+            </div>
+        </ng-template>
 
         <!-- Login Button -->
         <button nz-button nzType="default" (click)="login()" style="
