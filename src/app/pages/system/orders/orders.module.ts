@@ -16,6 +16,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzPopoverModule,
     NzPaginationModule,
     NzStepsModule,
-    NzDividerModule
+    NzDividerModule,
+    NzToolTipModule
   ]
 })
 export class OrdersModule { }

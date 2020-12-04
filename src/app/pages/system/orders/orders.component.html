@@ -75,7 +75,7 @@
         </div>
 
         <!-- Order-detail -->
-        <nz-table class="col-12 mt-3 p-0" style="border-top: 1px solid #f0f0f0;">
+        <nz-table class="table" style="border-top: 1px solid #f0f0f0;">
             <thead>
                 <tr style="color: #00000073;">
                     <!-- link -->
@@ -88,8 +88,105 @@
                         <div>
                             Channel
                             <i nz-icon nzType="info-circle" nzTheme="outline" nz-popover nzPopoverTrigger="click"
-                                [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom"
-                                style="cursor: pointer;"></i>
+                                [nzPopoverContent]="channelTemplate" nzPopoverPlacement="bottom"
+                                style="cursor: pointer;">
+                            </i>
+                            <ng-template #channelTemplate>
+                                <div style="color: #000000a6;
+                                            width: 180px;
+                                            font-weight: 400;">
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-website.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Website
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-app.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Application
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-shopee.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Shopee
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-facebook.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Facebook
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-line.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Line
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-lineat.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Line@
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-instagram.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Instagram
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-twitter.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Twitter
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-wechat.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Wechat
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-auto">
+                                            <img src="/assets/images/channel/ch-ket-market.png" alt=""
+                                                style="width: 25px;">
+                                        </div>
+                                        <div class="col pl-0 align-self-center">
+                                            Ket-market
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </th>
 
@@ -109,29 +206,59 @@
                         </div>
                         <ng-template #contentTemplate>
                             <div style="color: #000000a6;">
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-status1.png" alt=""
-                                        style="width: 28px;"> รอชำระเงิน
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-status1.png" alt=""
+                                            style="width: 28px;">
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        รอชำระเงิน
+                                    </div>
                                 </div>
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-status2.png" alt=""
-                                        style="width: 28px;"> ได้รับเงิน
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-status2.png" alt=""
+                                            style="width: 28px;">
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        ได้รับเงิน
+                                    </div>
                                 </div>
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-status3.png" alt=""
-                                        style="width: 28px;"> จัดเตรียมสินค้า
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-status3.png" alt=""
+                                        style="width: 28px;">
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        จัดเตรียมสินค้า
+                                    </div>
                                 </div>
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-status4.png" alt=""
-                                        style="width: 28px;"> จัดส่ง
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-status4.png" alt=""
+                                        style="width: 28px;"> 
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        จัดส่ง
+                                    </div>
                                 </div>
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-success.png" alt=""
-                                        style="width: 28px;"> เสร็จสิ้น
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-success.png" alt=""
+                                        style="width: 28px;"> 
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        เสร็จสิ้น
+                                    </div>
                                 </div>
-                                <div>
-                                    <img class="mr-2" src="/assets/images/status/order-status5.png" alt=""
-                                        style="width: 28px;"> ยกเลิก
+                                <div class="row mb-2">
+                                    <div class="col-auto">
+                                        <img src="/assets/images/status/order-status5.png" alt=""
+                                        style="width: 28px;"> 
+                                    </div>
+                                    <div class="col pl-0 align-self-center">
+                                        ยกเลิก
+                                    </div>
                                 </div>
                             </div>
                         </ng-template>
@@ -342,14 +469,14 @@
                                            width: 70px;
                                            height: 28px;
                                            object-fit: cover;
-                                           border-radius: 5px;">
+                                           border-radius: 3px;">
                             </div>
                             <div class="col pl-2 pr-0 align-self-center">
                                 <p style="margin: 0;
                                           font-size: 10px;
                                           color: #00000073;
                                           margin-bottom: 0;">
-                                    {{obj.delivery?.type == null? '':obj.delivery.type}}
+                                    {{obj.delivery?.type == null? '':'ขนส่ง ' + obj.delivery.type}}
                                 </p>
                                 <span style="font-size: 13px;
                                          font-weight: 400;">
@@ -358,7 +485,18 @@
                             </div>
                         </div>
                         <div class="col-12 px-0">
-                            <span class="badge-tracking" *ngIf="obj.trackcode !== null">{{obj.trackcode}}</span>
+                            <span class="badge-tracking" *ngIf="obj.trackcode !== null">
+                                {{obj.trackcode}}
+                                <span nz-tooltip nzTooltipTitle="คัดลอก Tracking" nzTooltipPlacement="top"
+                                    style="background-color: #fff;
+                                             color: #00000073;
+                                             padding: 0px 2px;
+                                             border-radius: 3px;
+                                             font-size: 13px;
+                                             cursor: pointer;">
+                                    <i class="far fa-clone"></i>
+                                </span>
+                            </span>
                         </div>
                     </td>
 
