@@ -64,8 +64,8 @@
                 <nz-option nzValue="เก็บเงินปลายทาง" nzLabel="เก็บเงินปลายทาง"></nz-option>
             </nz-select>
 
-            <nz-select class="mr-2" ngModel="Create By">
-                <nz-option nzValue="Create By" nzLabel="Create By"></nz-option>
+            <nz-select class="mr-2" ngModel="Created By">
+                <nz-option nzValue="Created By" nzLabel="Created By"></nz-option>
             </nz-select>
 
             <button nz-button class="btn-export">
@@ -187,13 +187,14 @@
 
                     <!-- Order no -->
                     <th>
-                        <input nz-input="" nzsize="small" placeholder="Order no." style="max-width: 120px;"
-                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                        <div>
+                            <input nz-input nzSize="small" placeholder="Order no." style="max-width: 120px;">
+                        </div>
                     </th>
 
                     <!-- Status -->
-                    <th>
-                        <div class="text-center align-middle">
+                    <th class="text-center align-middle">
+                        <div>
                             Status
                             <i nz-icon nzType="info-circle" nzTheme="outline" nz-popover nzPopoverTrigger="click"
                                 [nzPopoverContent]="contentTemplate" nzPopoverPlacement="bottom"
@@ -255,14 +256,15 @@
 
                     <!-- Name / Email -->
                     <th>
-                        <input nz-input="" nzsize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"
-                            class="ant-input ant-input-sm ng-pristine ng-valid ng-touched">
+                        <div>
+                            <input nz-input="" nzSize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"  class="">
+                        </div>
                     </th>
 
                     <!-- ยอดชำระ -->
                     <th class="text-right">
                         <input nz-input="" nzsize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');"
-                            placeholder="ยอดชำระ" style="max-width: 150px;"
+                            placeholder="ยอดชำระ" style="max-width: 110px;"
                             class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
                     </th>
 
@@ -339,8 +341,8 @@
 
                     <!-- Link -->
                     <td class="text-center align-middle">
-                        <div>
-                            <i class="fa fa-link fa-lg"></i>
+                        <div nz-tooltip nzTooltipTitle="คัดลอก link สำหรับลูกค้า" nzTooltipPlacement="top" style="cursor: pointer;">
+                            <i class="fa fa-link fa-lg" style="transform: rotate(90deg);"></i>
                         </div>
                     </td>
 
@@ -416,7 +418,7 @@
                                 </nz-step>
 
                             </nz-steps>
-                            < </ng-template>
+                            </ng-template>
 
                     </td>
 
@@ -444,23 +446,23 @@
 
                     <!-- Pay -->
                     <td class="text-center align-middle">
-                        <div *ngIf="obj?.paymenttype?.id == 1">
+                        <div *ngIf="obj?.paymenttype?.id == 1" nz-tooltip nzTooltipTitle="ชำระเงินสด" nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-cash.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 2">
+                        <div *ngIf="obj?.paymenttype?.id == 2" nz-tooltip nzTooltipTitle="โอนผ่านธนาคาร" nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-transfer.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 3">
+                        <div *ngIf="obj?.paymenttype?.id == 3" nz-tooltip nzTooltipTitle="Credit Card" nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-credit.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 4">
+                        <div *ngIf="obj?.paymenttype?.id == 4" nz-tooltip nzTooltipTitle="เก็บเงินปลายทาง" nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-cod.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 5">
+                        <div *ngIf="obj?.paymenttype?.id == 5" nz-tooltip nzTooltipTitle="QR code" nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-qrcode.png" alt="" style="width: 28px;">
                         </div>
                     </td>
@@ -488,7 +490,7 @@
                                            border-radius: 3px;">
                             </div>
                             <!-- Type & COD -->
-                            <div class="col pl-2 pr-0 align-self-center" style="height: 29px;">
+                            <div class="col pl-2 pr-0 align-self-center" style="height: 29px;" *ngIf="obj.delivery?.type !== null">
                                 <!-- <p style="margin: 0;
                                           font-size: 10px;
                                           color: #00000073;
@@ -501,7 +503,7 @@
                                              font-size: 10px;
                                              color: #00000073;
                                              margin-bottom: 0;">
-                                    <p class="mb-0">
+                                    <p class="mb-0" style="line-height: 10px;">
                                         {{obj.delivery?.type == null? '':'ขนส่ง ' + obj.delivery.type}}
                                         <span class="badge-type-dlvr" *ngIf="obj.delivery?.cod == true">COD</span>
                                     </p>
@@ -513,19 +515,22 @@
                                     {{obj.delivery?.name}}
                                 </span>
                             </div>
-                            <!-- จัดส่งฟรี -->
+                            
 
                         </div>
-                        <div class="col-12 mt-1 px-0">
-                            <span class="badge-tracking" *ngIf="obj.trackcode !== null">
+
+                        <!-- จัดส่งฟรี -->
+                        <div class="col-12 mt-1 px-0"  *ngIf="obj.trackcode !== '' && obj.trackcode !== null">
+                            <span class="badge-tracking">
                                 {{obj.trackcode}}
                                 <span nz-tooltip nzTooltipTitle="คัดลอก Tracking" nzTooltipPlacement="top" style="background-color: #fff;
                                              color: #00000073;
                                              padding: 0px 2px;
                                              border-radius: 3px;
-                                             font-size: 13px;
-                                             cursor: pointer;">
-                                    <i class="far fa-clone"></i>
+                                             font-size: 10px;
+                                             cursor: pointer;
+                                             margin-left: 4px;">
+                                    <i class="far fa-clone" style="transform: rotate(90deg);"></i>
                                 </span>
                             </span>
                         </div>
@@ -542,11 +547,11 @@
                     <!-- Button -->
                     <td class="text-right align-middle p-0">
                         <button class="btn btn-tmt-act btn-tmt-act-ed" nz-tooltip="" nztitle="โคลนออเดอร์">
-                            <i _ngcontent-rge-c11="" class="fa fa-clone"></i>
+                            <i class="fa fa-clone" style="transform: rotate(90deg);"></i>
                         </button>
 
-                        <button _ngcontent-kpd-c11="" class="btn btn-tmt-act btn-tmt-act-ed ml-2">
-                            <i _ngcontent-kpd-c11="" class="fas fa-pencil-alt"></i>
+                        <button class="btn btn-tmt-act btn-tmt-act-ed ml-2">
+                            <i class="fas fa-pencil-alt"></i>
                         </button>
                     </td>
                 </tr>
@@ -554,7 +559,7 @@
         </nz-table>
 
         <div>
-            <nz-pagination [nzPageIndex]="1" [nzTotal]="397" [nzPageSize]="10"
+            <nz-pagination [nzPageIndex]="1" nzTotal="{{Itemcount}}" [nzPageSize]="10"
                 (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
         </div>
 

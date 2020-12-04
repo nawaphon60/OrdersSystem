@@ -83,6 +83,11 @@ nz-select {
     background-color: transparent;
 }
 
+::ng-deep .ant-input{
+    padding: 1px 30px 1px 7px !important;
+    border-radius: 5px;
+}
+
 ::ng-deep .anticon svg {
     margin-bottom: 3px;
 }
