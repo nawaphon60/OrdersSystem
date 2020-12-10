@@ -36,21 +36,7 @@ export class LoginService {
         authorization: `Bearer ${JSON.parse(localStorage.getItem('token')).access_token}`
       }
     }
-    return this._http.post(`${api_url}/order/search`,{
-      channel: data.channel,
-      odercode: data.odercode,
-      order_date: data.order_date,
-      name: data.bill_name,
-      lastname: data.bill_lastname,
-      username: data.username,
-      totals: data.totals,
-      startdate: data.startdate,
-      delivery: data.delivery,
-      trackcode: data.trackcode,
-      itemcount: data.count,
-      created_at: data.created_at,
-      created_by: data.created_by
-    },_header).toPromise()
+    return this._http.post(`${api_url}/order/search`,data,_header).toPromise()
   }
 
 }

@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-4 p-0 text-center">
-        <nz-range-picker (ngModel)="date"></nz-range-picker>
+        <nz-range-picker (ngModel)="date" (ngModelChange)="onChange($event)"></nz-range-picker>
     </div>
 
     <div class="row col-4 ml-0 p-0 justify-content-end">
@@ -75,7 +75,7 @@
         </div>
 
         <!-- Order-detail -->
-        <nz-table class="table" style="border-top: 1px solid #f0f0f0;">
+        <nz-table class="table" style="border-top: 1px solid #f0f0f0;" [nzData]="listorder"> 
             <thead>
                 <tr style="color: #00000073;">
                     <!-- link -->
@@ -337,7 +337,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let obj of OrderData" style="color: #000000d9;">
+                <tr *ngFor="let obj of listorder" style="color: #000000d9;">
 
                     <!-- Link -->
                     <td class="text-center align-middle">
@@ -348,7 +348,7 @@
 
                     <!-- Channel -->
                     <td class="text-center align-middle">
-                        <div><img src="https://uat.ketshoptest.com/{{obj.from_social.img}}" alt="..."
+                        <div><img src="https://uat.ketshoptest.com/{{obj.from_social?.img}}" alt="..."
                                 style="width: 26px;"></div>
                     </td>
 
@@ -559,8 +559,9 @@
         </nz-table>
 
         <div>
-            <nz-pagination [nzPageIndex]="1" nzTotal="{{Itemcount}}" [nzPageSize]="10"
+            <nz-pagination [nzPageIndex]="1" [nzTotal]="Itemcount" [nzPageSize]="10" [nzShowTotal]="rangeTemplate"
                 (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
+                <ng-template #rangeTemplate let-range="range" let-total> {{ range[0] }}-{{ range[1] }} of {{ total }} items </ng-template>
         </div>
 
     </nz-tab>

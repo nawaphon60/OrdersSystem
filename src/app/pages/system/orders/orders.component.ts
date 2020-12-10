@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { log } from 'console';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,6 +11,8 @@ export class OrdersComponent implements OnInit {
 
   date = null;
   OrderData = {
+    page : 1,
+    perpage :10,
     channel: "",
     ordercode: "",
     order_date: "",
@@ -18,12 +21,14 @@ export class OrdersComponent implements OnInit {
     username: "",
     totals: "",
     startdate: "",
+    enddate: "",
     delivery: "",
     trackcode: "",
     created_at: "",
     created_by: ""
   }
   Itemcount: any = ""
+  listorder: any [] = []
 
   constructor(
     private loginService: LoginService,
@@ -31,6 +36,9 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(`I will init when tab active`);
+
+
+
     this.post()
   }
 
@@ -39,24 +47,9 @@ export class OrdersComponent implements OnInit {
   }
 
   post() {
-    let model = {
-      channel: this.OrderData.channel,
-      ordercode: this.OrderData.ordercode,
-      order_date: this.OrderData.order_date,
-      name: this.OrderData.name,
-      lastname: this.OrderData.lastname,
-      username: this.OrderData.username,
-      totals: this.OrderData.totals,
-      startdate: this.OrderData.startdate,
-      delivery: this.OrderData.delivery,
-      trackcode: this.OrderData.trackcode,
-      created_at: this.OrderData.created_at,
-      created_by: this.OrderData.created_by
-    }
+    this.loginService.post(this.OrderData).then((res: any) => {
 
-    this.loginService.post(model).then((res: any) => {
-
-      this.OrderData = res.data;
+      this.listorder = res.data;
       this.Itemcount = res.count;
       console.log(this.Itemcount)
 
@@ -68,6 +61,9 @@ export class OrdersComponent implements OnInit {
 
   onPageIndexChange($event) {
     //do something here to go to next page
+    // console.log($event)
+    this.OrderData.page = $event
+    this.post()
   }
 
   replaceLineBreaksWithHTML(string) {
@@ -77,5 +73,7 @@ export class OrdersComponent implements OnInit {
   replaceHTMLWithLineBreaks(string) {
     return string !== undefined ? string.replace(/<br\/>/gi, '\n') : "";
   }
+
+  // window.open('loooooo', '_blank', 'toolbar=no,location=no,menubar=no')
 
 }
