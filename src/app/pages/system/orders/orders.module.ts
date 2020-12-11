@@ -17,6 +17,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     NzPaginationModule,
     NzStepsModule,
     NzDividerModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzTimePickerModule
   ]
 })
 export class OrdersModule { }

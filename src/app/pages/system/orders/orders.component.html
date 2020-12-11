@@ -34,38 +34,40 @@
                         padding-top: 4px;
                         ">Filter</div>
 
-            <nz-select ngModel="ทุกสถานะ">
-                <nz-option nzValue="ทุกสถานะ" nzLabel="ทุกสถานะ"></nz-option>
-                <nz-option nzValue="ยกเลิก" nzLabel="ยกเลิก"></nz-option>
-                <nz-option nzValue="รอชำระเงิน" nzLabel="รอชำระเงิน"></nz-option>
-                <nz-option nzValue="ได้รับเงิน" nzLabel="ได้รับเงิน"></nz-option>
-                <nz-option nzValue="จัดเตรียมสินค้า" nzLabel="จัดเตรียมสินค้า"></nz-option>
-                <nz-option nzValue="จัดส่ง" nzLabel="จัดส่ง"></nz-option>
-                <nz-option nzValue="เสร็จสิ้น" nzLabel="เสร็จสิ้น"></nz-option>
+            <nz-select [(ngModel)]="model_search.status" (ngModelChange)="Selected($event)">
+                <nz-option [nzValue]="''" nzLabel="ทุกสถานะ"></nz-option>
+                <nz-option [nzValue]="-1" nzLabel="ยกเลิก"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="รอชำระเงิน"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="ได้รับเงิน"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="จัดเตรียมสินค้า"></nz-option>
+                <nz-option [nzValue]="4" nzLabel="จัดส่ง"></nz-option>
+                <nz-option [nzValue]="5" nzLabel="เสร็จสิ้น"></nz-option>
             </nz-select>
 
-            <nz-select ngModel="ทุกช่องทางขาย">
-                <nz-option nzValue="ทุกช่องทางขาย" nzLabel="ทุกช่องทางขาย"></nz-option>
-                <nz-option nzValue="Facbook" nzLabel="Facbook"></nz-option>
-                <nz-option nzValue="Line@" nzLabel="Line@"></nz-option>
-                <nz-option nzValue="Line" nzLabel="Line"></nz-option>
-                <nz-option nzValue="Instagram" nzLabel="Instagram"></nz-option>
-                <nz-option nzValue="Twitter" nzLabel="Twitter"></nz-option>
-                <nz-option nzValue="Wechat" nzLabel="Wechat"></nz-option>
-                <nz-option nzValue="Web Site" nzLabel="Web Site"></nz-option>
+            <nz-select [(ngModel)]="model_search.channel" (ngModelChange)="Selected($event)">
+                <nz-option [nzValue]="''" nzLabel="ทุกช่องทางขาย"></nz-option>
+                <nz-option [nzValue]="'facebook'" nzLabel="Facebook"></nz-option>
+                <nz-option [nzValue]="'line@'" nzLabel="Line@"></nz-option>
+                <nz-option [nzValue]="'line'" nzLabel="Line"></nz-option>
+                <nz-option [nzValue]="'instagram'" nzLabel="Instagram"></nz-option>
+                <nz-option [nzValue]="'twitter'" nzLabel="Twitter"></nz-option>
+                <nz-option [nzValue]="'wechat'" nzLabel="Wechat"></nz-option>
+                <nz-option [nzValue]="'website'" nzLabel="Web Site"></nz-option>
             </nz-select>
 
-            <nz-select ngModel="ทุกการชำระเงิน">
-                <nz-option nzValue="ทุกการชำระเงิน" nzLabel="ทุกการชำระเงิน"></nz-option>
-                <nz-option nzValue="ชำระเงินสด" nzLabel="ชำระเงินสด"></nz-option>
-                <nz-option nzValue="โอนเงินผ่านธนาคาร" nzLabel="โอนเงินผ่านธนาคาร"></nz-option>
-                <nz-option nzValue="Credit Card" nzLabel="Credit Card"></nz-option>
-                <nz-option nzValue="QR Code" nzLabel="QR Code"></nz-option>
-                <nz-option nzValue="เก็บเงินปลายทาง" nzLabel="เก็บเงินปลายทาง"></nz-option>
+            <nz-select [(ngModel)]="model_search.paymenttype" (ngModelChange)="Selected($event)">
+                <nz-option [nzValue]="''" nzLabel="ทุกการชำระเงิน"></nz-option>
+                <nz-option [nzValue]="1" nzLabel="ชำระเงินสด"></nz-option>
+                <nz-option [nzValue]="2" nzLabel="โอนเงินผ่านธนาคาร"></nz-option>
+                <nz-option [nzValue]="3" nzLabel="Credit Card"></nz-option>
+                <nz-option [nzValue]="5" nzLabel="QR Code"></nz-option>
+                <nz-option [nzValue]="4" nzLabel="เก็บเงินปลายทาง"></nz-option>
             </nz-select>
 
-            <nz-select class="mr-2" ngModel="Created By">
-                <nz-option nzValue="Created By" nzLabel="Created By"></nz-option>
+            <nz-select class="mr-2" [(ngModel)]="model_search.created_by">
+                <nz-option [nzValue]="''" nzLabel="Created By"></nz-option>
+                <nz-option [nzValue]="obj.created_by" nzLabel="{{obj.created_by}}" *ngFor="let obj of listorder">
+                </nz-option>
             </nz-select>
 
             <button nz-button class="btn-export">
@@ -75,7 +77,7 @@
         </div>
 
         <!-- Order-detail -->
-        <nz-table class="table" style="border-top: 1px solid #f0f0f0;" [nzData]="listorder"> 
+        <nz-table class="table" style="border-top: 1px solid #f0f0f0;" [nzData]="listorder" [nzShowPagination]="false">
             <thead>
                 <tr style="color: #00000073;">
                     <!-- link -->
@@ -188,7 +190,8 @@
                     <!-- Order no -->
                     <th>
                         <div>
-                            <input nz-input nzSize="small" placeholder="Order no." style="max-width: 120px;">
+                            <input nz-input nzSize="small" placeholder="Order no." style="max-width: 120px;"
+                                [(ngModel)]="model_search.ordercode" (ngModelChange)="Selected($event)">
                         </div>
                     </th>
 
@@ -257,7 +260,8 @@
                     <!-- Name / Email -->
                     <th>
                         <div>
-                            <input nz-input="" nzSize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"  class="">
+                            <input nz-input="" nzSize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"
+                                [(ngModel)]="model_search.name" (ngModelChange)="Selected($event)">
                         </div>
                     </th>
 
@@ -265,7 +269,8 @@
                     <th class="text-right">
                         <input nz-input="" nzsize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');"
                             placeholder="ยอดชำระ" style="max-width: 110px;"
-                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid"
+                            [(ngModel)]="model_search.totals" (ngModelChange)="Selected($event)">
                     </th>
 
                     <!-- Pay -->
@@ -329,27 +334,65 @@
 
                     <!-- Tracking Code -->
                     <th><input nz-input="" nzsize="small" placeholder="Tracking Code" style="max-width: 150px;"
-                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid">
+                            class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid"
+                            [(ngModel)]="model_search.trackcode" (ngModelChange)="Selected($event)">
                     </th>
 
                     <!-- Button -->
                     <th></th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr *ngFor="let obj of listorder" style="color: #000000d9;">
 
                     <!-- Link -->
                     <td class="text-center align-middle">
-                        <div nz-tooltip nzTooltipTitle="คัดลอก link สำหรับลูกค้า" nzTooltipPlacement="top" style="cursor: pointer;">
+                        <div nz-tooltip nzTooltipTitle="คัดลอก link สำหรับลูกค้า" nzTooltipPlacement="top"
+                            style="cursor: pointer;">
                             <i class="fa fa-link fa-lg" style="transform: rotate(90deg);"></i>
                         </div>
                     </td>
 
                     <!-- Channel -->
                     <td class="text-center align-middle">
-                        <div><img src="https://uat.ketshoptest.com/{{obj.from_social?.img}}" alt="..."
-                                style="width: 26px;"></div>
+                        <!-- <div><img src="https://uat.ketshoptest.com/{{obj.from_social?.img}}" alt="..."
+                                style="width: 26px;"></div> -->
+
+                        <!-- Facebook -->
+                        <div *ngIf="obj.channel == 'facebook'">
+                            <img src="/assets/images/channel/ch-facebook.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Line@ -->
+                        <div *ngIf="obj.channel == 'line@'">
+                            <img src="/assets/images/channel/ch-lineat.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Line -->
+                        <div *ngIf="obj.channel == 'line'">
+                            <img src="/assets/images/channel/ch-line.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Instagram -->
+                        <div *ngIf="obj.channel == 'instagram'">
+                            <img src="/assets/images/channel/ch-instagram.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Twetter -->
+                        <div *ngIf="obj.channel == 'twetter'">
+                            <img src="/assets/images/channel/ch-twitter.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Wechat -->
+                        <div *ngIf="obj.channel == 'wechat'">
+                            <img src="/assets/images/channel/ch-wechat.png" alt="" style="width: 26px;">
+                        </div>
+
+                        <!-- Website -->
+                        <div *ngIf="obj.channel == 'website'">
+                            <img src="/assets/images/channel/ch-website.png" alt="" style="width: 26px;">
+                        </div>
                     </td>
 
                     <!-- Order no. -->
@@ -418,7 +461,7 @@
                                 </nz-step>
 
                             </nz-steps>
-                            </ng-template>
+                        </ng-template>
 
                     </td>
 
@@ -429,7 +472,8 @@
                             font-weight: 400;
                             letter-spacing: .018em;
                             color: #000000d9;">
-                            {{ obj.bill_name }} {{ obj.bill_lastname }}
+                            <!-- {{ obj.bill_name }} {{ obj.bill_lastname }} -->
+                            {{obj.name}}
                         </div>
 
                         <div style="
@@ -446,23 +490,28 @@
 
                     <!-- Pay -->
                     <td class="text-center align-middle">
-                        <div *ngIf="obj?.paymenttype?.id == 1" nz-tooltip nzTooltipTitle="ชำระเงินสด" nzTooltipPlacement="top">
+                        <div *ngIf="obj?.paymenttype?.id == 1" nz-tooltip nzTooltipTitle="ชำระเงินสด"
+                            nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-cash.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 2" nz-tooltip nzTooltipTitle="โอนผ่านธนาคาร" nzTooltipPlacement="top">
+                        <div *ngIf="obj?.paymenttype?.id == 2" nz-tooltip nzTooltipTitle="โอนผ่านธนาคาร"
+                            nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-transfer.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 3" nz-tooltip nzTooltipTitle="Credit Card" nzTooltipPlacement="top">
+                        <div *ngIf="obj?.paymenttype?.id == 3" nz-tooltip nzTooltipTitle="Credit Card"
+                            nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-credit.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 4" nz-tooltip nzTooltipTitle="เก็บเงินปลายทาง" nzTooltipPlacement="top">
+                        <div *ngIf="obj?.paymenttype?.id == 4" nz-tooltip nzTooltipTitle="เก็บเงินปลายทาง"
+                            nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-cod.png" alt="" style="width: 28px;">
                         </div>
 
-                        <div *ngIf="obj?.paymenttype?.id == 5" nz-tooltip nzTooltipTitle="QR code" nzTooltipPlacement="top">
+                        <div *ngIf="obj?.paymenttype?.id == 5" nz-tooltip nzTooltipTitle="QR code"
+                            nzTooltipPlacement="top">
                             <img src="/assets/images/pay/payment-qrcode.png" alt="" style="width: 28px;">
                         </div>
                     </td>
@@ -490,7 +539,8 @@
                                            border-radius: 3px;">
                             </div>
                             <!-- Type & COD -->
-                            <div class="col pl-2 pr-0 align-self-center" style="height: 29px;" *ngIf="obj.delivery?.type !== null">
+                            <div class="col pl-2 pr-0 align-self-center" style="height: 29px;"
+                                *ngIf="obj.delivery?.type !== null">
                                 <!-- <p style="margin: 0;
                                           font-size: 10px;
                                           color: #00000073;
@@ -515,12 +565,12 @@
                                     {{obj.delivery?.name}}
                                 </span>
                             </div>
-                            
+
 
                         </div>
 
                         <!-- จัดส่งฟรี -->
-                        <div class="col-12 mt-1 px-0"  *ngIf="obj.trackcode !== '' && obj.trackcode !== null">
+                        <div class="col-12 mt-1 px-0" *ngIf="obj.trackcode !== '' && obj.trackcode !== null">
                             <span class="badge-tracking">
                                 {{obj.trackcode}}
                                 <span nz-tooltip nzTooltipTitle="คัดลอก Tracking" nzTooltipPlacement="top" style="background-color: #fff;
@@ -550,7 +600,7 @@
                             <i class="fa fa-clone" style="transform: rotate(90deg);"></i>
                         </button>
 
-                        <button class="btn btn-tmt-act btn-tmt-act-ed ml-2">
+                        <button class="btn btn-tmt-act btn-tmt-act-ed ml-2" (click)="edit()">
                             <i class="fas fa-pencil-alt"></i>
                         </button>
                     </td>
@@ -561,7 +611,8 @@
         <div>
             <nz-pagination [nzPageIndex]="1" [nzTotal]="Itemcount" [nzPageSize]="10" [nzShowTotal]="rangeTemplate"
                 (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
-                <ng-template #rangeTemplate let-range="range" let-total> {{ range[0] }}-{{ range[1] }} of {{ total }} items </ng-template>
+            <ng-template #rangeTemplate let-range="range" let-total> {{ range[0] }}-{{ range[1] }} of {{ total }} items
+            </ng-template>
         </div>
 
     </nz-tab>
