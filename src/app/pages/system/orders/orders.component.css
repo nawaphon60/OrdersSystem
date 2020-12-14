@@ -2,6 +2,10 @@ h3 {
     font-weight: 600 !important;
 }
 
+::ng-deep .table td {
+    border-top: 0px solid !important;
+}
+
 th {
     font-size: 12px;
 }
@@ -95,17 +99,6 @@ nz-select {
 nz-tag {
     border-radius: 5px;
     padding: 2px 9px;
-}
-
-.totals {
-    width: auto;
-    font-size: 12px;
-    color: #52c41a;
-    background: #f6ffed;
-    border: 1px solid #b7eb8f;
-    border-radius: 5px;
-    padding: 2px 2px;
-    text-align: center;
 }
 
 .btn-tmt-act {

@@ -1,1 +1,344 @@
-<p>order-detail works!</p>
+<div class="col-12" style="
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    background-color: #343a40;
+    padding: 0px;
+    border-bottom: 2px solid #d9d9d9;
+    ">
+    <div class="row col-12 mt-2 ml-2 p-0">
+        <a href="#" class="p-1" style="width: 40px;"><i nz-icon nzType="left" nzTheme="outline" style="
+            color: white;
+            font-size: 28px;
+            "></i></a>
+        <h4 class="mt-1 ml-3" style="
+                color: #dfdfdf;
+                font-size: 18px;
+                font-weight: 400;
+            ">
+            เลขออเดอร์ #{{orderDetail?.ordercode}}</h4>
+        <!-- <input type="text" (focus)="onAction('focus')" (keyup)="onAction('keyup')" > -->
+    </div>
+
+
+    <div class="row col-12 m-0 pl-2 pr-0 mt-1 justify-content-between">
+        <div>
+            <span style="color: white;">สถานะ</span>
+            <nz-select [(ngModel)]="status" class="select-bordercustom ml-3" (ngModelChange)="onStatusChange()">
+                <nz-option *ngFor="let obj of orderDetail?.available_status" [nzValue]="obj.status"
+                    [nzLabel]="obj.name"></nz-option>
+            </nz-select>
+        </div>
+        <div>
+            <button *ngIf="status !== 4" nz-button nzType="primary" nzDanger style="border-radius: 5px;"
+                (click)="onSave()">บันทึก</button>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------------------------------------------------------------------------------->
+
+<div class="col-md-12 pl-0 pr-0" style="margin-top: 110px;">
+    <div class="col-12 mb-3">
+
+        <!-- การจัดส่ง -->
+
+        <div class="row col-12 pr-0 justify-content-between">
+            <h5>การจัดส่ง</h5>
+            <a nz-button nzType="link" nzDanger class="text-right mr-0 pr-0"><i nz-icon nzType="printer"
+                    nzTheme="outline" class="pirnter-icon"></i>พิมพ์ใบสั่งซื้อ</a>
+        </div>
+
+        <div class="row ml-0 mr-0" style="
+                background-color: #ffffff;
+                box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+                border-radius: 5px;
+                margin: 0px 5px;
+                padding: 10px 0px 5px 0px;
+            ">
+
+            <!-- Delivery -->
+            <div class="col-12 col-xl-3 mb-3 pl-2 pr-2">
+                <p class="mb-1" style="color: #000000a6;">ผู้บริการขนส่ง</p>
+
+                <!-- auto -->
+                <div class="ng-star-inserted" *ngIf="orderDetail?.delivery?.is_auto == true || false">{{orderDetail?.delivery?.name}} (
+                    <span>{{orderDetail.delivery?.price | currency: ' '}}</span> ) </div>
+                
+                <!-- select -->
+                <nz-select class="select-bordercustom" nzPlaceHolder="เลือกผู้ให้บริการขนส่ง" [(ngModel)]="selectdelivery" 
+                (ngModelChange)="ondeliverychange()" *ngIf="orderDetail?.freeshipping == 1 && status == 4">
+                    <nz-option nzLabel="กำหนดเอง" nzDisabled></nz-option>
+                    <nz-option *ngFor="let obj of orderDetail?.freeshipping_delivery.freeshipping_manual"
+                        [nzLabel]="obj.name" [nzValue]="obj"></nz-option>
+                    <nz-option nzLabel="อัตโนมัติ" nzDisabled></nz-option>
+                    <nz-option *ngFor="let obj of orderDetail?.freeshipping_delivery.freeshipping_auto"
+                        [nzLabel]="obj.name" [nzValue]="obj" [nzCustomContent]="true">{{obj.name}} - ({{obj.price}} THB)</nz-option>
+                </nz-select>
+
+                <nz-select class="select-bordercustom" nzPlaceHolder="เลือกผู้ให้บริการขนส่ง" [(ngModel)]="selectdelivery" 
+                (ngModelChange)="ondeliverychange()" *ngIf="orderDetail?.delivery_type == 'auto_normal' && status == 4">
+                    <nz-option nzLabel="อัตโนมัติ" nzDisabled></nz-option>
+                    <nz-option *ngFor="let obj of orderDetail?.shippopdata"
+                        [nzLabel]="obj.name" [nzValue]="obj" [nzCustomContent]="true">{{obj.name}} - {{obj.price}} THB</nz-option>
+                </nz-select>
+            </div>
+
+            <!-- Tracking Code -->
+            <div class="col-12 col-xl-6 mb-3 pl-2 pr-2">
+                <p class="mb-1" style="color: #000000a6;">Tracking Code</p>
+
+                <!-- auto -->
+                <!-- <p *ngIf="orderDetail?.delivery?.is_auto == true">{{orderDetail?.trackcode}}</p> -->
+                
+                <!-- input -->
+                <input [disabled]="orderDetail?.trackcode || status < 4 || selectdelivery?.courier_code !=='normal'" nz-input placeholder="กรุณาพิมพ์เลขพัสดุ" 
+                    [(ngModel)]="trackcode" nzSize="default" style="border-radius: 5px;" />
+            </div>
+
+            <!-- Shipping Code -->
+            <div class="col-12 col-xl-6 mb-3 pl-2 pr-2">
+                <p class="mb-1" style="color: #000000a6;">Shipping Code</p>
+                <p *ngIf="orderDetail?.delivery?.is_auto == true">{{orderDetail?.shippingcode}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- รายการสั่งซื้อ -->
+
+    <div class="col-12">
+        <h5>รายการสั่งซื้อ</h5>
+
+        <div class="card mb-3" style="
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            ">
+            <div class="row no-gutters">
+                <div class="row no-gutters col-12" *ngFor="let obj of orderDetail?.details">
+                    <div class="col-4 p-3 col-md-4 text-center">
+                        <img src="https://uat.ketshoptest.com{{obj.feature_img}}" alt="..."
+                            style="width: 86px;">
+                    </div>
+
+                    <div class="col-8 col-md-8">
+                        <div class="card-body p-0 pt-2 mt-3">
+                            <h5 class="crd-titile" style="
+                                    font-weight: 400;
+                                    border-radius: 5px;
+                                ">
+                                {{obj.title_lang1}}</h5>
+                            <div class="txt-black-45 small">SKU : {{obj.sku}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 pl-2 pr-2">
+                    <div class="row mt-3 mb-1 ml-0 mr-0" style="border-bottom: 1px solid #dfdfdf;"
+                        *ngFor="let obj of orderDetail?.details">
+                        <div class="col-4 text-left pl-0 pr-0">จำนวน :</div>
+                        <div class="col-4 text-left pl-0 pr-0">{{obj.qty}}</div>
+                        <div class="col-4 text-right pl-0 pr-0">{{obj.totalprice  | currency:' '}} THB</div>
+                    </div>
+                    
+                    <!-- TotalPrice -->
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.details">
+                        <div class="col-8 text-left pl-0 pr-0">ราคารวมสินค้า :</div>
+                        <div class="col-4 text-right pl-0 pr-0">{{orderDetail?.amount | currency:' '}} THB</div>
+                    </div>
+
+                    <!-- UsePoint -->
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.discount_point > 0">
+                        <div class="col-8 text-left pl-0 pr-0">ส่วนลดจากแต้มสะสม {{orderDetail?.use_point}} แต้ม :</div>
+                        <div class="col-4 text-right pl-0 pr-0">{{orderDetail?.discount_point | currency:' '}} THB</div>
+                    </div>
+
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.discountaddon > 0">
+                        <div class="col-8 text-left pl-0 pr-0">ส่วนลดพิเศษ</div>
+                        <div class="col-4 text-right pl-0 pr-0">- {{orderDetail?.discountaddon | currency:' '}} THB</div>
+                    </div>
+
+                    <!-- Promotion -->
+
+                    <!-- Condition -->
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.promotion_data?.data?.condition?.promotion_discount">
+                        <div class="col-8 text-left pl-0 pr-0">
+                            ส่วนลดโปรโมชั่น {{orderDetail?.promotion_data?.data?.condition.title}}
+                            <span *ngIf="orderDetail?.promotion_data?.data?.condition.discount_type == 'percent'">(
+                                {{orderDetail?.promotion_data?.data?.condition.discount}}% ) :</span>
+                        </div>
+                        <div class="col-4 text-right pl-0 pr-0">
+                            -{{orderDetail?.promotion_data?.data?.condition?.promotion_discount}} THB</div>
+                    </div>
+
+                    <!-- Coupon -->
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.promotion_data?.data?.coupon">
+                        <div class="col-8 text-left pl-0 pr-0">
+                            ส่วนลดคูปอง {{orderDetail?.promotion_data?.data?.coupon.code}}
+                            <span *ngIf="orderDetail?.promotion_data?.data?.coupon.value_type == 'percent'">(
+                                {{orderDetail?.promotion_data?.data?.coupon.value}}% ) :</span>
+                        </div>
+                        <div class="col-4 text-right pl-0 pr-0">
+                            -{{orderDetail?.promotion_data?.data?.coupon?.promotion_discount | currency:' '}} THB</div>
+                    </div>
+
+
+                    <!-- Vat -->
+                    <div class="row ml-0 mr-0" *ngIf="orderDetail?.vat > 0">
+                        <div class="col-8 text-left pl-0 pr-0">Vat {{orderDetail?.vatrate | currency:' '}}% :</div>
+                        <div class="col-4 text-right pl-0 pr-0">{{orderDetail?.vat | currency:' '}} THB</div>
+                    </div>
+
+
+
+                    <!-- COD -->
+                    <div class="row mb-1 ml-0 mr-0" *ngIf="orderDetail?.cod == 1">
+                        <div class="col-8 text-left pl-0 pr-0">
+                            ค่าธรรมเนียม {{orderDetail?.cod_rate}}
+                            <span *ngIf="orderDetail?.cod_rate_type == 'percent'">%</span>
+                            <span *ngIf="orderDetail?.cod_rate_type == 'normal'">THB</span>
+                        </div>
+                        <div class="col-4 text-right pl-0 pr-0">
+                            {{orderDetail?.cod_value}} THB</div>
+                    </div>
+
+                    <!-- FreeShipping -->
+                    <div class="row mb-1 ml-0 mr-0" *ngIf="orderDetail?.freeshipping == 1">
+                        <div class="col-8 text-left pl-0 pr-0">ฟรีค่าขนส่ง :</div>
+                        <div class="col-4 text-right pl-0 pr-0">0.00 THB</div>
+                    </div>
+
+                    <!-- Normal -->
+                    <div class="row mb-1 ml-0 mr-0" *ngIf="orderDetail?.delivery?.name">
+                        <div class="col-8 text-left pl-0 pr-0">{{orderDetail?.delivery?.name}} :</div>
+                        <div class="col-4 text-right pl-0 pr-0">{{orderDetail?.delicharge | currency:' '}} THB
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-6 text-left">น้ำหนักรวม :</div>
+                        <div class="col-6 text-right">200 กรัม</div>
+                    </div>
+
+                    <div class="col-12 text-right pr-0 mb-1">
+                        กล่องเบอร์ 0 (11x17x6 cm)
+                    </div> -->
+
+                    <div class="row ml-0 mr-0 pt-1 pb-1" style="
+                            border-top: 1px solid #dfdfdf;
+                            border-bottom: 1px solid #dfdfdf;
+                        ">
+                        <div class="col-8 pl-0 pr-0 text-left"><strong>ยอดที่ต้องชำระรวม :</strong></div>
+                        <div class="col-4 pl-0 pr-0 text-right"><strong>{{orderDetail?.totals  | currency:' '}}
+                                THB</strong></div>
+                    </div>
+                </div>
+
+                <div class="col-12 pl-2">
+                    <p class="mb-0" style="color: #000000a6;">หมายเหตุจากลูกค้า</p>
+                    <p class="mb-0" *ngIf="orderDetail?.customer_note == null"> -</p>
+                    <p class="mb-0">{{orderDetail?.customer_note}}</p>
+                </div>
+
+                <div class="col-12 p-2">
+                    <p class="mb-0" style="color: #000000a6;"><i class="fas fa-lock"></i> หมายเหตุภายใน</p>
+                    <textarea _ngcontent-gkk-c2="" class="form-control ng-untouched ng-pristine ng-valid"
+                        rows="2"[(ngModel)]="Note"></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Detail -->
+<nz-collapse [nzBordered]="false">
+    <nz-collapse-panel #p *ngFor="let panel of panels; let isFirst = first" [nzHeader]="panel.name"
+        [nzActive]="panel.active" [ngStyle]="panel.customStyle">
+        <!-- <p>{{ panel.name }} content</p> -->
+        <div class="detail col-12 pl-2 pr-2 pb-2 col-md-12 pt-2" style="
+            position: relative;
+            background-color: #eaeaea;
+            font-weight: 400;
+            border-radius: 5px;
+        ">
+            <div style="
+                border-bottom: 1px solid #d2d2d2;
+                padding-bottom: 15px;
+            ">
+                <h5>ข้อมูลคำสั่งซื้อ</h5>
+                <div class="row">
+                    <div class="col-5 pr-0">วันที่สร้าง</div>
+                    <div class="col-7">{{orderDetail?.created_at}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">ช่องทางขาย</div>
+                    <div class="col-7">{{orderDetail?.sale_channel}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">สร้างโดย</div>
+                    <div class="col-7">{{orderDetail?.created_by}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">การชำระเงิน</div>
+                    <div class="col-7">{{orderDetail?.paymenttype.name}}</div>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <h5>ข้อมูลลูกค้า</h5>
+                <div class="row">
+                    <div class="col-5 pr-0">อีเมล</div>
+                    <div class="col-7">{{orderDetail?.customer.username}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เบอร์โทร</div>
+                    <div class="col-7">{{orderDetail?.customer.tel}}</div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <span class="badge badge-dark mb-2">ที่อยู่สำหรับจัดส่ง</span>
+                <div class="row">
+                    <div class="col-5 pr-0">ชื่อ - นามสกุล</div>
+                    <div class="col-7">{{orderDetail?.shipping_name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เบอร์โทร</div>
+                    <div class="col-7">{{orderDetail?.shipping_tel}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">ที่อยู่</div>
+                    <div class="col-7">{{orderDetail?.shipping_address1}} {{orderDetail?.shipping_subdistic}}
+                        {{orderDetail?.shipping_district}}
+                        {{orderDetail?.shipping_province}}{{orderDetail?.shipping_zipcode}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <span class="badge badge-dark mb-2">ที่อยู่สำหรับออกบิล</span>
+                <div class="row">
+                    <div class="col-5 pr-0">ชื่อ - นามสกุล</div>
+                    <div class="col-7">{{orderDetail?.bill_name}} {{orderDetail?.bill_lastname}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เลขนิติบุคคล</div>
+                    <div class="col-7">{{orderDetail?.tax_no}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เบอร์โทร</div>
+                    <div class="col-7">{{orderDetail?.bill_tel}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">ที่อยู่</div>
+                    <div class="col-7">{{orderDetail?.bill_address1}} {{orderDetail?.bill_subdistrict}}
+                        {{orderDetail?.bill_district}} {{orderDetail?.bill_province}} {{orderDetail?.bill_zipcode}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #expandedIcon let-active>
+            {{ active }}
+            <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+        </ng-template>
+    </nz-collapse-panel>
+</nz-collapse>

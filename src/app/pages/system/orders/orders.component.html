@@ -77,9 +77,9 @@
         </div>
 
         <!-- Order-detail -->
-        <nz-table class="table" style="border-top: 1px solid #f0f0f0;" [nzData]="listorder" [nzShowPagination]="false">
+        <nz-table class="table" [nzData]="listorder" [nzShowPagination]="false">
             <thead>
-                <tr style="color: #00000073;">
+                <tr>
                     <!-- link -->
                     <th class="text-center align-middle">
                         <div>Link</div>
@@ -613,14 +613,14 @@
                             <i class="fa fa-clone" style="transform: rotate(90deg);"></i>
                         </button>
 
-                        <button class="btn btn-tmt-act btn-tmt-act-ed ml-2" (click)="edit()">
+                        <button class="btn btn-tmt-act btn-tmt-act-ed ml-2" (click)="openorder(obj.ordercode)">
                             <i class="fas fa-pencil-alt"></i>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </nz-table>
-
+        
         <div>
             <nz-pagination [nzPageIndex]="1" [nzTotal]="Itemcount" [nzPageSize]="10" [nzShowTotal]="rangeTemplate"
                 (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>

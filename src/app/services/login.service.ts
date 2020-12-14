@@ -13,33 +13,12 @@ export class LoginService {
   ) { }
 
 
-  test(){
-    let _header = {
-      headers: {
-        authorization: `Bearer ${JSON.parse(localStorage.getItem('token')).access_token}`
-      }
-    }
-    return this._http.get(`${api_url}/util/websiteUsage`, _header).toPromise()
-  }
-
   login(data:any) {
     return this._http.post(`${api_url}/login/web`,{
       domain: 'uat.ketshoptest.com',
       username: data.username,
       password: data.password
     }).toPromise()
-  }
-
-  post(data:any) {
-    let  token = localStorage.getItem('token')
-    let token_json = JSON.parse(token)
-
-    let _header = {
-      headers: {
-        authorization: `Bearer ${token_json.access_token}`
-      }
-    }
-    return this._http.post(`${api_url}/order/search`,data,_header).toPromise()
   }
 
 }

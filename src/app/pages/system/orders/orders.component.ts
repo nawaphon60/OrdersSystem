@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import { log } from 'console';
-import { LoginService } from 'src/app/services/login.service';
+import { OrderService } from 'src/app/services/order.service';
 import * as moment from 'moment'
 
 @Component({
@@ -12,6 +12,7 @@ export class OrdersComponent implements OnInit {
 
   date: any[] = null;
   model_search = {
+    id : "",
     search : "",
     status: "",
     page : 1,
@@ -35,7 +36,7 @@ export class OrdersComponent implements OnInit {
   listorder: any [] = []
 
   constructor(
-    private loginService: LoginService,
+    private orderService: OrderService,
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +62,7 @@ export class OrdersComponent implements OnInit {
   }
 
   post() {
-    this.loginService.post(this.model_search).then((res: any) => {
+    this.orderService.post(this.model_search).then((res: any) => {
 
       this.listorder = res.data;
       this.Itemcount = res.count;
@@ -89,15 +90,15 @@ export class OrdersComponent implements OnInit {
   // }
 
 
-  edit(){
+  openorder(ordercode:any){
     // window.open("https://uat.ketshoptest.com/system/e-commerce/order/edit/2012000092", "_blank", "toolbar=no, location=no,menubar=no,top=1000");
   
-    window.open("/system/e-commerce/order/edit/2012000100","_blank","width=1000,height=500,top=100");
+    window.open(`/order-detail/${ordercode}`,"_blank","width=475,height=700,top=100");
 
   }
 
   Selected($event){
-    this.loginService.post(this.model_search).then((res: any) => {
+    this.orderService.post(this.model_search).then((res: any) => {
 
       
       this.listorder = res.data;
