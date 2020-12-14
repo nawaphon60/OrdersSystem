@@ -31,9 +31,12 @@ export class LoginService {
   }
 
   post(data:any) {
+    let  token = localStorage.getItem('token')
+    let token_json = JSON.parse(token)
+
     let _header = {
       headers: {
-        authorization: `Bearer ${JSON.parse(localStorage.getItem('token')).access_token}`
+        authorization: `Bearer ${token_json.access_token}`
       }
     }
     return this._http.post(`${api_url}/order/search`,data,_header).toPromise()

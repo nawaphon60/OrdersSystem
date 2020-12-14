@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-4 p-0 text-center">
-        <nz-range-picker (ngModel)="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+        <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker>
     </div>
 
     <div class="row col-4 ml-0 p-0 justify-content-end">
@@ -190,8 +190,8 @@
                     <!-- Order no -->
                     <th>
                         <div>
-                            <input nz-input nzSize="small" placeholder="Order no." style="max-width: 120px;"
-                                [(ngModel)]="model_search.ordercode" (ngModelChange)="Selected($event)">
+                            <input nz-input nzSize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');" 
+                                placeholder="Order no." style="max-width: 120px;" [(ngModel)]="model_search.ordercode" (ngModelChange)="Selected($event)">
                         </div>
                     </th>
 
@@ -260,14 +260,14 @@
                     <!-- Name / Email -->
                     <th>
                         <div>
-                            <input nz-input="" nzSize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"
-                                [(ngModel)]="model_search.name" (ngModelChange)="Selected($event)">
+                            <input nz-input nzSize="small" placeholder="ชื่อ หรืออีเมล" style="max-width: 150px;"
+                                [(ngModel)]="model_search.search" (keyup.enter)="Selected($event)">
                         </div>
                     </th>
 
                     <!-- ยอดชำระ -->
                     <th class="text-right">
-                        <input nz-input="" nzsize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');"
+                        <input nz-input nzsize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');"
                             placeholder="ยอดชำระ" style="max-width: 110px;"
                             class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid"
                             [(ngModel)]="model_search.totals" (ngModelChange)="Selected($event)">
@@ -410,6 +410,12 @@
 
                     <!-- Status -->
                     <td class="text-center align-middle">
+                        
+                        <!-- Pending -->
+                        <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
+                            *ngIf="obj.status == 0">
+                            <img src="/assets/images/status/order-status0.png" alt="" style="width: 28px;">
+                        </div>
                         <!-- รอชำระเงิน -->
                         <div nz-popover [nzPopoverContent]="TimelineTemplate" nzPopoverPlacement="right"
                             *ngIf="obj.status == 1">
@@ -533,6 +539,13 @@
                             <!-- logo -->
                             <div *ngIf="obj?.delivery?.logo">
                                 <img src="https://uat.ketshoptest.com/{{obj.delivery.logo}}" alt="..." style="max-width: 100%;
+                                           width: 70px;
+                                           height: 28px;
+                                           object-fit: cover;
+                                           border-radius: 3px;">
+                            </div>
+                            <div *ngIf="obj?.shippop?.img">
+                                <img src="https://uat.ketshoptest.com/{{obj.shippop.img}}" alt="..." style="max-width: 100%;
                                            width: 70px;
                                            height: 28px;
                                            object-fit: cover;
