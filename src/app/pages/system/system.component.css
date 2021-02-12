@@ -1,3 +1,10 @@
+.ant-layout-content {
+    height: 93vh;
+    overflow: overlay;
+    padding: 0px 30px 15px 0px;
+    margin-right: 0;
+}
+
 ::ng-deep .ant-layout-sider-children {
     background-color: #1a1a1a !important;
 }
@@ -14,7 +21,7 @@ ul.ant-menu {
     background-color: #1a1a1a;
 }
 
-.ant-layout.ant-layout-has-sider {
+.ant-layout .ant-layout-has-sider {
     height: 100%;
 }
 
@@ -72,12 +79,11 @@ nz-breadcrumb {
 
 ::ng-deep .ant-menu-submenu-open {
     color: #e85440 !important;
-
 }
 
 
 
-.ant-menu-item-selected {
+::ng-deep .ant-menu-item-selected {
     background-color: #e85440 !important;
 }
 
@@ -88,4 +94,8 @@ nz-breadcrumb {
 
 ::ng-deep .ant-menu-dark .ant-menu-sub {
     background-color: #1a1a1a !important;
+}
+
+body {
+    overflow: hidden;
 }

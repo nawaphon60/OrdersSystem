@@ -2,40 +2,60 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" nzWidth="240px" [nzTrigger]="null">
         <div class="logo"></div>
         <ul nz-menu nzTheme="dark" nzMode="inline">
-            <li nz-submenu nzOpen nzTitle="E-commerce" nzIcon="shopping-cart">
+            <!-- <li nz-submenu nzTitle="Product Manager" [nzOpen]="href == '/system/products'? true:false" nzIcon="shopping-cart"> -->
+            <!-- <li nz-submenu nzTitle="Product Manager" [(nzOpen)]="openMap.sub1" (nzOpenChange)="openHandler('sub1')" nzIcon="shopping-cart"> -->
+            <li nz-submenu nzTitle="Product Manager" routerLinkActive="ant-menu-submenu-open" [(nzOpen)]="openMap.sub1"
+                (nzOpenChange)="openHandler('sub1')" nzIcon="shopping-cart">
                 <ul>
-                    <li nz-menu-item nzSelected>Order</li>
-                    <li nz-menu-item>Order Link</li>
+                    <a routerLink="/system/products">
+                        <li nz-menu-item routerLinkActive="ant-menu-item-selected">Products</li>
+                    </a>
+                    <li nz-menu-item>Category</li>
+                    <li nz-menu-item>Tags</li>
+                    <li nz-menu-item>Product Report</li>
+                </ul>
+            </li>
+            <!-- <li nz-submenu nzTitle="E-commerce" [nzOpen]="href == '/system/orders'? true:false || href == '/system/order-link'? true:false" nzIcon="shopping-cart"> -->
+            <!-- <li nz-submenu nzTitle="E-commerce" [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')" nzIcon="shopping-cart"> -->
+            <li nz-submenu nzTitle="E-commerce" routerLinkActive="ant-menu-submenu-open ant-menu-submenu-selected"
+                [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')" nzIcon="shopping-cart">
+                <ul>
+                    <a routerLink="/system/orders">
+                        <li nz-menu-item routerLinkActive="ant-menu-item-selected">Order</li>
+                    </a>
+                    <a routerLink="/system/order-link">
+                        <li nz-menu-item routerLinkActive="ant-menu-item-selected">Order Link</li>
+                    </a>
                     <li nz-menu-item>Sale Page</li>
                     <li nz-menu-item>Confirm Payment</li>
                     <li nz-menu-item>E-Payment</li>
                     <li nz-menu-item>Promotion</li>
                 </ul>
             </li>
-
-            <!-- <li nz-submenu nzTitle="Team" nzIcon="team">
+            <li nz-submenu nzTitle="Delivery Manager" [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')"
+                nzIcon="shopping-cart">
                 <ul>
-                    <li nz-menu-item>Team 1</li>
-                    <li nz-menu-item>Team 2</li>
+                    <li nz-menu-item>Delivery</li>
+                    <li nz-menu-item>Delivery History</li>
+                    <li nz-menu-item>Delivery Credit</li>
+                    <li nz-menu-item>Delivery Price</li>
                 </ul>
             </li>
-
-            <li nz-menu-item>
-                <i nz-icon nzType="file"></i>
-                <span>File</span>
-            </li> -->
         </ul>
     </nz-sider>
+
     <nz-layout>
-        <nz-header style="box-shadow: 2px 2px 10px 2px #00000033;">
-            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+        <nz-header style="box-shadow: 2px 2px 10px 2px #00000033;
+                          z-index: 9;">
+            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                (click)="isCollapsed = !isCollapsed"></i>
             <i class="trigger pl-0" nz-icon nzType="fullscreen" nzTheme="outline"></i>
         </nz-header>
         <nz-content>
 
             <nz-breadcrumb>
             </nz-breadcrumb>
-            
+
             <div class="inner-content">
                 <router-outlet></router-outlet>
             </div>

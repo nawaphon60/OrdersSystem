@@ -30,8 +30,10 @@
             </nz-select>
         </div>
         <div>
-            <button *ngIf="status !== 4" nz-button nzType="primary" nzDanger style="border-radius: 5px;"
-                (click)="onSave()">บันทึก</button>
+            <button *ngIf="status !== 4" nz-button nzType="primary" nzDanger class="mr-0" style="border-radius: 5px;"
+                (click)="update(orderDetail.ordercode)">บันทึก</button>
+            
+            <button nz-button class="btn-default ml-2" (click)="closeWindow()">ปิด</button>
         </div>
     </div>
 </div>
@@ -284,7 +286,10 @@
             </div>
 
             <div class="pt-3">
-                <h5>ข้อมูลลูกค้า</h5>
+                <div class="row ml-0 mr-0 justify-content-between">
+                    <h5>ข้อมูลลูกค้า</h5>
+                    <button class="btn-default btn-small ml-2" nzSize="small" nz-button>แก้ไข</button>
+                </div>
                 <div class="row">
                     <div class="col-5 pr-0">อีเมล</div>
                     <div class="col-7">{{orderDetail?.customer.username}}</div>
@@ -334,6 +339,25 @@
                         {{orderDetail?.bill_district}} {{orderDetail?.bill_province}} {{orderDetail?.bill_zipcode}}
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-5 pr-0">ชื่อ - นามสกุล</div>
+                    <div class="col-7"><input nz-input [(ngModel)]="model.bill_name" placeholder="ชื่อ - นามสกุล" nzSize="small" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เลขนิติบุคคล</div>
+                    <div class="col-7">{{orderDetail?.tax_no}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 pr-0">เบอร์โทร</div>
+                    <div class="col-7"><input nz-input [(ngModel)]="model.bill_tel" placeholder="เบอร์โทร" nzSize="small" /></div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-5 pr-0">ที่อยู่</div>
+                    <div class="col-7"><input nz-input [(ngModel)]="orderDetail.bill_address1 + orderDetail.bill_subdistrict + orderDetail.bill_district +
+                        orderDetail.bill_province + orderDetail.bill_zipcode" placeholder="ที่อยู่" nzSize="small" />
+                    </div>
+                </div> -->
             </div>
         </div>
         <ng-template #expandedIcon let-active>

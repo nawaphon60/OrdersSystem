@@ -38,4 +38,20 @@ getOrderByCode(ordercode: string){
   return this._http.get(`${api_url}/order/${ordercode}?type=ordercode`,_header).toPromise()
 }
 
+update(data: any, ordercode: string){
+
+  let token = localStorage.getItem('token')
+  let token_json = JSON.parse(token)
+
+  let _header = {
+    headers: {
+      authorization: `Bearer ${token_json.access_token}`
+    }
+  }
+    
+  return this._http.put(`${api_url}/order/${ordercode}`, data, _header).toPromise()
+}
+
+
+
 }

@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
+
+interface ImodelSave {
+  bill_name: string;
+  bill_tel: string;
+}
 
 @Component({
   selector: 'app-order-detail',
@@ -8,6 +13,11 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
+
+  model: ImodelSave = {
+    bill_name: "",
+    bill_tel: ""
+  }
 
   status: number = 0
   trackcode: string = ""
@@ -18,7 +28,9 @@ export class OrderDetailComponent implements OnInit {
   constructor(
     private orderService:OrderService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+
+  }
 
   panels = [
     {
@@ -55,27 +67,59 @@ export class OrderDetailComponent implements OnInit {
 
       
     // })
+    let o = {
+      gg: "d",
+      ss: {
+        dd: "e"
+      }
+    }
+
+    let aa = [o,o,o]
+
 
     try{
-      let res = await this.orderService.getOrderByCode(ordercode)
+      let res = await this.orderService.getOrderByCode(ordercode) as ImodelSave
 
       console.log('order', res)
       this.orderDetail = res
+
+      // การ clone ทั้งหมด ต้อง install Lodash และ import มาใช้
+      // this.model  =  cloneDeep(this.orderDetail) as  ImodelSave
+
+      this.model.bill_name = this.orderDetail.bill_name
+      this.model.bill_tel = this.orderDetail.bill_tel
       this.status = this.orderDetail.status
       this.Note = this.orderDetail.note
     }catch(err){
       
+      
     }
+
+
 
 
     // for(let obj of this.orderDetail.available_status){
     //   console.log(obj)
     // }
 
+    // this.sleep().then((r)=>{
 
+    // }).catch((err)=>{
+
+    // })
+    // .finally(()=>{
+
+    // })
 
   }
 
+  // sleep(){
+  //   return new Promise((s,j)=>{
+  //     setTimeout(()=>{
+  //       s(1)
+  //     },2000)
+  //   })
+  // }
 
   onAction(action:string){
     console.log(action)
@@ -86,12 +130,29 @@ export class OrderDetailComponent implements OnInit {
   }
 
 
-  onSave(){
-    console.log(this.status)
-    if(!this.trackcode.trim()){
-      return
+  update(ordercode: any){
+    let model  = {
+      bill_name: this.model.bill_name, 
+      bill_tel: this.model.bill_tel
     }
-    console.log(this.trackcode)
+    console.log(model)
+    this.orderService.update(model, ordercode).then((res:any)=>{
+    
+    })
+    .catch((err:any)=>{
+
+    })
+    
+    console.log(this.status)
+    this.closeWindow()
+    // if(!this.trackcode.trim()){
+      
+    // }
+    // console.log(this.trackcode)
+  }
+
+  closeWindow() {
+    window.self.close()
   }
 
   ondeliverychange() {

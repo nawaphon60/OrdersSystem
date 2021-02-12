@@ -1,4 +1,3 @@
-
 nz-select {
     margin: 0 8px 10px 0;
     width: 220px;
@@ -6,6 +5,26 @@ nz-select {
 
 [nz-button] {
     margin-right: 8px;
+}
+
+[nz-button] .btn-default {
+    line-height: 10px;
+}
+
+::ng-deep .btn-default {
+    color: #000000a6;
+    border-radius: 5px;
+}
+
+::ng-deep .btn-default.btn-small {
+    color: #000000a6;
+    border-radius: 5px;
+    padding: 0px 7px;
+}
+
+.btn-default:hover {
+    color: #e85440;
+    border-color: #e85440;
 }
 
 .pirnter-icon {

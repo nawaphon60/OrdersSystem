@@ -66,8 +66,7 @@
 
             <nz-select class="mr-2" [(ngModel)]="model_search.created_by">
                 <nz-option [nzValue]="''" nzLabel="Created By"></nz-option>
-                <nz-option [nzValue]="obj.created_by" nzLabel="{{obj.created_by}}" *ngFor="let obj of listorder">
-                </nz-option>
+                <nz-option [nzValue]="obj.created_by" nzLabel="{{obj.created_by}}" *ngFor="let obj of listorder"></nz-option>
             </nz-select>
 
             <button nz-button class="btn-export">
@@ -191,7 +190,7 @@
                     <th>
                         <div>
                             <input nz-input nzSize="small" oninput="this.value = this.value.replace(/[^0-9\.]/g, '');" 
-                                placeholder="Order no." style="max-width: 120px;" [(ngModel)]="model_search.ordercode" (ngModelChange)="Selected($event)">
+                                placeholder="Order no." style="max-width: 120px;" [(ngModel)]="model_search.ordercode" (keyup.enter)="Selected($event)">
                         </div>
                     </th>
 
@@ -333,7 +332,7 @@
                     <!-- <th>Shipping</th> -->
 
                     <!-- Tracking Code -->
-                    <th><input nz-input="" nzsize="small" placeholder="Tracking Code" style="max-width: 150px;"
+                    <th><input nz-input nzsize="small" placeholder="Tracking Code" style="max-width: 150px;"
                             class="ant-input ant-input-sm ng-untouched ng-pristine ng-valid"
                             [(ngModel)]="model_search.trackcode" (ngModelChange)="Selected($event)">
                     </th>
@@ -521,17 +520,6 @@
                             <img src="/assets/images/pay/payment-qrcode.png" alt="" style="width: 28px;">
                         </div>
                     </td>
-
-                    <!-- Shipping -->
-                    <!-- <td class="text-center align-middle">
-                        <div *ngIf="obj?.delivery?.logo">
-                            <img src="https://uat.ketshoptest.com/{{obj.delivery.logo}}" alt="..." style="max-width: 100%;
-                                       width: 80px;
-                                       height: 30px;
-                                       object-fit: cover;
-                                       border-radius: 5px;">
-                        </div>
-                    </td> -->
 
                     <!-- Tracking COD -->
                     <td class="align-middle">

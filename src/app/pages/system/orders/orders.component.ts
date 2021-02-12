@@ -12,11 +12,11 @@ export class OrdersComponent implements OnInit {
 
   date: any[] = null;
   model_search = {
-    id : "",
-    search : "",
+    id: "",
+    search: "",
     status: "",
-    page : 1,
-    perpage :10,
+    page: 3,
+    perpage: 10,
     channel: "",
     ordercode: "",
     order_date: "",
@@ -33,7 +33,7 @@ export class OrdersComponent implements OnInit {
     paymenttype: ""
   }
   Itemcount: any = ""
-  listorder: any [] = []
+  listorder: any[] = []
 
   constructor(
     private orderService: OrderService,
@@ -43,7 +43,7 @@ export class OrdersComponent implements OnInit {
     console.log(this.model_search.status)
 
     this.model_search.startdate = moment(moment().add(-2, 'months').format('YYYY-MM-DD HH:MM:ss')).format('YYYY-MM-DD 00:00:00')
-    this.model_search.enddate =  moment().format('YYYY-MM-DD 23:59:59')
+    this.model_search.enddate = moment().format('YYYY-MM-DD 23:59:59')
     this.date = [this.model_search.startdate, this.model_search.enddate]
     this.post()
   }
@@ -51,10 +51,10 @@ export class OrdersComponent implements OnInit {
   onChange(result: Date[]): void {
     console.log('onChange: ', result);
     // console.log(this.model_search.startdate)
-    if(result.length == 2){
+    if (result.length == 2) {
       this.model_search.startdate = moment(result[0]).format('YYYY-MM-DD HH:MM:ss')
-      this.model_search.enddate =  moment(result[1]).format('YYYY-MM-DD HH:MM:ss')
-    }else{
+      this.model_search.enddate = moment(result[1]).format('YYYY-MM-DD HH:MM:ss')
+    } else {
       this.model_search.startdate = ""
       this.model_search.enddate = ""
     }
@@ -66,8 +66,8 @@ export class OrdersComponent implements OnInit {
 
       this.listorder = res.data;
       this.Itemcount = res.count;
-      console.log(this.Itemcount)
-      console.log(this.listorder)
+
+      console.log(res)
     })
       .catch((err: any) => {
 
@@ -76,40 +76,24 @@ export class OrdersComponent implements OnInit {
 
   onPageIndexChange($event) {
     //do something here to go to next page
-    // console.log($event)
     this.model_search.page = $event
     this.post()
   }
 
-  // replaceLineBreaksWithHTML(string) {
-  //   return string !== undefined ? string.replace(/\n/g, '<br/>') : "";
-  // }
-
-  // replaceHTMLWithLineBreaks(string) {
-  //   return string !== undefined ? string.replace(/<br\/>/gi, '\n') : "";
-  // }
-
-
-  openorder(ordercode:any){
-    // window.open("https://uat.ketshoptest.com/system/e-commerce/order/edit/2012000092", "_blank", "toolbar=no, location=no,menubar=no,top=1000");
-  
-    window.open(`/order-detail/${ordercode}`,"_blank","width=475,height=700,top=100");
-
+  openorder(ordercode: any) {
+    window.open(`/order-detail/${ordercode}`, "_blank", "width=475,height=700");
   }
 
-  Selected($event){
+  Selected($event) {
     this.orderService.post(this.model_search).then((res: any) => {
-
-      
       this.listorder = res.data;
       this.Itemcount = res.count;
-      console.log(this.Itemcount)
-      console.log(this.model_search.status)
+      console.log(res)
     })
-    .catch((err: any) => {
+      .catch((err: any) => {
 
-    })
+      })
   }
-  
+
 
 }
